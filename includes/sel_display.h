@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_lst.h                                        .::    .:/ .      .::   */
+/*   sel_display.h                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/21 16:21:18 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 16:57:42 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/25 14:43:42 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/25 14:44:30 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_LST_H
-# define SEL_LST_H
+#ifndef SEL_DISPLAY_H
+# define SEL_DISPLAY_H
 
-int		init_arglst(t_headlst *lst, int ac, char **av);
-void	echo_result();
-void	free_arglst(t_headlst *lst);
+void	display_list(t_headlst *head);
 
 #endif

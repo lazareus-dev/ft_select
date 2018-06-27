@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_lst.h                                        .::    .:/ .      .::   */
+/*   sel_display.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/21 16:21:18 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 16:57:42 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/25 14:35:40 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/25 14:52:45 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_LST_H
-# define SEL_LST_H
+#include "../includes/ft_select.h"
+#include "../includes/sel_select.h"
+#include "../includes/sel_lst.h"
 
-int		init_arglst(t_headlst *lst, int ac, char **av);
-void	echo_result();
-void	free_arglst(t_headlst *lst);
+void	put_elem(t_elem *elem)
+{
+	if (elem->selected)
+		ft_putstr(UNDERL);
+	ft_putendl(elem->name);
+}
 
-#endif
+void	display_list(t_headlst *head)
+{
+	t_elem	*elem;
+
+	if (!head || !head->first)
+		return ;
+	elem = (t_elem*)(head->first);
+	while (elem->next != (t_elem*)(head->first))
+	{
+		put_elem(elem);
+		elem = elem->next;
+	}
+	put_elem(elem);
+}

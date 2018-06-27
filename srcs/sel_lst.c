@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   sel_lst.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/20 10:55:55 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/22 11:39:37 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/25 14:55:04 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/25 14:55:10 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
+#include "../includes/sel_select.h"
 #include "../libft/ft_printf/ft_printf.h"
 
 void	push_back(t_headlst **head, t_elem *elem)
@@ -61,13 +62,15 @@ int		init_arglst(t_headlst *lst, int ac, char **av)
 	return (0);
 }
 
-void	print_arglst(t_headlst *head)
+void	echo_result()
 {
-	t_elem	*node;
-	t_elem	*first;
+	t_select	*select;
+	t_elem		*node;
+	t_elem		*first;
 
-	node = head->first;
-	first = head->first;
+	select = get_select();
+	node = select->arglst->first;
+	first = select->arglst->first;
 	while (node != first->prev)
 	{
 		ft_putstr(node->name);
@@ -94,5 +97,5 @@ void	free_arglst(t_headlst *arglst)
 		curr = tmp;
 	}
 	free(first);
-	arglst = NULL;
+	free(arglst);
 }

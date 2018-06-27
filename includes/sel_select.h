@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_lst.h                                        .::    .:/ .      .::   */
+/*   sel_select.h                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/21 16:21:18 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 16:57:42 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/22 11:46:37 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/22 13:56:43 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_LST_H
-# define SEL_LST_H
+#ifndef SEL_SELECT_H
+# define SEL_SELECT_H
 
-int		init_arglst(t_headlst *lst, int ac, char **av);
-void	echo_result();
-void	free_arglst(t_headlst *lst);
+t_select	*get_select(void);
+t_select	*new_select(void);
 
 #endif

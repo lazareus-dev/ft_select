@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:08:40 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/22 11:39:42 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/27 15:06:55 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,20 +17,20 @@
 # include <termios.h>
 # include "../libft/ft_printf/ft_printf.h"
 
-typedef struct termios t_ermios;
+# define RESET	"\e[0m"
+# define V_INV	"\e[7m"
+# define UNDERL	"\e[4m"
+# define BOLD	"\e[1m"
+# define GREEN	"\e[32m"
 
-typedef struct		s_win
-{
-	unsigned int	col;
-	unsigned int	row;
-}					t_win;
+typedef struct termios	t_ermios;
 
 typedef struct		s_select
 {
 	char			*buff;
 	t_ermios		term;
 	t_ermios		orig_termios;
-	t_win			win;
+	struct winsize	win;
 	t_headlst		*arglst;
 }					t_select;
 
@@ -38,6 +38,7 @@ typedef struct		s_elem
 {
 	char			*name;
 	int				selected;
+	int				cur;
 	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
