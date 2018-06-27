@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 10:55:55 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/27 15:36:39 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/27 16:25:27 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,14 +45,20 @@ void	move_left(void)
 
 void	keys(char buffer[])
 {
-		if (!ft_strcmp(buffer, tgetstr("ku", NULL)))
+		if (buffer[2] == 'A')
 			ft_putstr("^");
-		else if (!ft_strcmp(buffer, tgetstr("kd", NULL)))
+		else if (buffer[2] == 'B')
 			ft_putstr("v");
-		else if (!ft_strcmp(buffer, tgetstr("kr", NULL)))
+		else if (buffer[2] == 'C')
 			move_right();
-		else if (!ft_strcmp(buffer, tgetstr("kl", NULL)))
+		else if (buffer[2] == 'D')
 			move_left();
+		else if (buffer[2] == '3')
+			ft_putendl("Delete");
+		else if (buffer[2] == 'H')
+			ft_putendl("Home");
+		else if (buffer[2] == 'F')
+			ft_putendl("End");
 		else
 			ft_putstr(&buffer[1]);
 }
@@ -76,7 +82,7 @@ int     voir_touche()
 			return (0);
 		else if (buffer[0] == ' ')
 			ft_putendl("Select");
-		else if (buffer[0] == 127 || !ft_strcmp(buffer, tgetstr("kL", NULL)))
+		else if (buffer[0] == 127)
 			ft_putendl("Delete");
 	}
 	return (0);
