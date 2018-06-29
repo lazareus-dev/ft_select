@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/25 14:55:04 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 14:55:10 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 14:20:58 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,7 @@ void	echo_result()
 		node = node->next;
 	}
 	ft_putstr(node->name);
+	ft_putchar('\n');
 }
 
 void	free_arglst(t_headlst *arglst)

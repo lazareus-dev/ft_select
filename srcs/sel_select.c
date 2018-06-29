@@ -6,14 +6,16 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/22 11:06:26 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/25 18:17:03 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 15:29:01 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
+#include "../includes/sel_lst.h"
 #include <termcap.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
 
 int     get_termtype()
 {
@@ -48,7 +50,7 @@ int     set_termios(t_select *select)
 	select->term.c_lflag &= ~(ICANON | ECHO);
 	select->term.c_cc[VMIN] = 1;
 	select->term.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSAFLUSH, &(select->term)) == -1)
+	if (tcsetattr(0, TCSANOW, &(select->term)) == -1)
 		return (1);
 	return (0);
 }
@@ -65,6 +67,7 @@ t_select	*new_select(void)
 	if (get_termtype())
 		return (NULL);
 	set_termios(select);
+	ioctl(0, TIOCGWINSZ, &(select->win));
 	return (select);
 }
 
@@ -76,4 +79,14 @@ t_select	*get_select(void)
 		if (!(select = new_select()))
 			return (NULL);
 	return (select);
+}
+
+void    clear_select(void)
+{
+	t_select	*select;
+
+	select = get_select();
+	free_arglst(select->arglst);
+	ft_strdel(&(select->buff));
+	free(select);
 }

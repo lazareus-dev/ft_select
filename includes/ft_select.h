@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:08:40 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/27 15:06:55 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 15:06:31 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,6 @@
 
 # define RESET	"\e[0m"
 # define V_INV	"\e[7m"
-# define UNDERL	"\e[4m"
 # define BOLD	"\e[1m"
 # define GREEN	"\e[32m"
 
