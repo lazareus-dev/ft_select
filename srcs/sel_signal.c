@@ -38,7 +38,6 @@ void	sigint_handler(int sig)
 	}
 	else if (sig == SIGCONT)
 	{
-		ft_putstr(GREEN);
 		signal(SIGTSTP, sigint_handler);
 		tcsetattr(0, TCSANOW, &(select->term));
 	}

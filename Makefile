@@ -6,7 +6,7 @@
 #    By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/04/23 19:11:16 by tle-coza     #+#   ##    ##    #+#        #
-#    Updated: 2018/06/29 15:09:41 by tle-coza    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/06/29 16:58:39 by tle-coza    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,7 +16,7 @@ NAME        =   ft_select
 FLAGS		= 	#-Wall -Wextra -Werror -O3
 
 FILENAMES   =   main.c sel_lst.c sel_select.c sel_display.c sel_signal.c \
-				sel_refresh.c sel_keys.c
+				sel_refresh.c sel_loop.c
 
 SOURCES     =   $(addprefix srcs/, $(FILENAMES))
 

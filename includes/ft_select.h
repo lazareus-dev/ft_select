@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 13:08:40 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 15:06:31 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 17:15:14 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,15 +24,6 @@
 
 typedef struct termios	t_ermios;
 
-typedef struct		s_select
-{
-	char			*buff;
-	t_ermios		term;
-	t_ermios		orig_termios;
-	struct winsize	win;
-	t_headlst		*arglst;
-}					t_select;
-
 typedef struct		s_elem
 {
 	char			*name;
@@ -41,5 +32,14 @@ typedef struct		s_elem
 	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
+
+typedef struct		s_select
+{
+	t_ermios		term;
+	t_ermios		orig_termios;
+	struct winsize	win;
+	t_headlst		*arglst;
+	t_elem			*cur;
+}					t_select;
 
 #endif

@@ -18,13 +18,15 @@
 
 void	put_elem(t_elem *elem)
 {
-	tputs(tgetstr("so", NULL), 0, ft_putchar_term);
-	if (elem->selected)
-		tputs(tgetstr("us", NULL), 0, ft_putchar_term);
 	if (elem->cur)
+		tputs(tgetstr("us", NULL), 0, ft_putchar_term);
+	if (elem->selected)
 		tputs(tgetstr("mr", NULL), 0, ft_putchar_term);
 	ft_putendl(elem->name);
-	tputs(tgetstr("se", NULL), 0, ft_putchar_term);
+	if (elem->selected)
+		tputs(tgetstr("se", NULL), 0, ft_putchar_term);
+	if (elem->cur)
+		tputs(tgetstr("ue", NULL), 0, ft_putchar_term);
 }
 
 void	display_list(t_headlst *head)

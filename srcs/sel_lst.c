@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/25 14:55:04 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 14:20:58 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 18:45:24 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ void	push_back(t_headlst **head, t_elem *elem)
 		(*head)->first = elem;
 		elem->next = elem;
 		elem->prev = elem;
+		elem->cur = 1;
 	}
 	else
 	{
@@ -44,14 +45,41 @@ t_elem	*new_elem(char *name)
 	elem->prev = NULL;
 	elem->next = NULL;
 	elem->selected = 0;
+	elem->cur = 0;
 	elem->name = name;
 	return (elem);
 }
 
-int		init_arglst(t_headlst *lst, int ac, char **av)
+int		delete_elem(void)
 {
-	t_elem	*elem;
+	t_select	*select;
+	t_elem		*to_del;
+	t_elem		*next;
+	t_elem		*first;
 
+	select = get_select();
+	to_del = select->cur;
+	next = to_del->next;
+	first = select->arglst->first;
+	if (first == to_del)
+		select->arglst->first = next;
+	to_del->prev->next = next;
+	next->prev = to_del->prev;
+	if (next->prev == next)
+		return (1);
+	select->cur = next;
+	next->cur = 1;
+	free(to_del);
+	sel_refresh(select);
+	return (0);
+}
+
+int		init_arglst(t_select *select, int ac, char **av)
+{
+	t_elem		*elem;
+	t_headlst	*lst;
+
+	lst = select->arglst;
 	lst->first = NULL;
 	while (--ac)
 	{
@@ -59,6 +87,7 @@ int		init_arglst(t_headlst *lst, int ac, char **av)
 			return (-1);
 		push_back(&lst, elem);
 	}
+	select->cur = lst->first;
 	return (0);
 }
 
@@ -73,11 +102,15 @@ void	echo_result()
 	first = select->arglst->first;
 	while (node != first->prev)
 	{
-		ft_putstr(node->name);
-		ft_putchar(' ');
+		if (node->selected)
+		{
+			ft_putstr(node->name);
+			ft_putchar(' ');
+		}
 		node = node->next;
 	}
-	ft_putstr(node->name);
+	if (node->selected)
+		ft_putstr(node->name);
 	ft_putchar('\n');
 }
 
@@ -89,7 +122,7 @@ void	free_arglst(t_headlst *arglst)
 
 	if (!arglst)
 		return ;
-	first = (arglst)->first;
+	first = arglst->first;
 	curr = first->next;
 	while (curr != first)
 	{

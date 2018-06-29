@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/22 11:06:26 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 15:29:01 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/29 17:15:35 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,6 @@ t_select	*new_select(void)
 
 	if (!(select = (t_select *)malloc(sizeof(t_select))))
 		return (NULL);
-	select->buff = NULL;
 	if (!(select->arglst = (t_headlst *)malloc(sizeof(t_headlst))))
 		return (NULL);
 	if (get_termtype())
@@ -87,6 +86,5 @@ void    clear_select(void)
 
 	select = get_select();
 	free_arglst(select->arglst);
-	ft_strdel(&(select->buff));
 	free(select);
 }
