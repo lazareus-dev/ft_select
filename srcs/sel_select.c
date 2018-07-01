@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/22 11:06:26 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/30 21:22:31 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 16:23:36 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ static t_select	*new_select(void)
 
 t_select		*get_select(void)
 {
-	static t_select	*select = NULL;
+	static t_select	*select;
 
 	if (!select)
 		if (!(select = new_select()))
@@ -85,7 +85,9 @@ void			clear_select(void)
 {
 	t_select	*select;
 
-	select = get_select();
+	if (!(select = get_select()))
+		return ;
+	close(select->fd);
 	free_arglst(select->arglst);
 	free(select);
 }

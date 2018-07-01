@@ -6,13 +6,12 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/20 10:55:55 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/30 21:22:14 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 16:26:14 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include <termcap.h>
-#include <sys/ioctl.h>
 #include "../includes/ft_select.h"
 #include "../includes/sel_select.h"
 #include "../includes/sel_refresh.h"
