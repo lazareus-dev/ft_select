@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_display.h                                    .::    .:/ .      .::   */
+/*   sel_utils.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/25 14:43:42 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/01 14:26:50 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/30 21:08:08 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/30 21:08:52 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_DISPLAY_H
-# define SEL_DISPLAY_H
+#ifndef SEL_UTILS_H
+# define SEL_UTILS_H
 
-void	display_list(t_select *select);
+size_t	max_len(t_headlst *head);
+void	echo_result(void);
 
 #endif

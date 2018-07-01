@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_display.h                                    .::    .:/ .      .::   */
+/*   sel_error.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/25 14:43:42 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/01 14:26:50 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/30 16:10:23 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/30 23:11:12 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_DISPLAY_H
-# define SEL_DISPLAY_H
+#ifndef SEL_ERROR_H
+# define SEL_ERROR_H
 
-void	display_list(t_select *select);
+int		term_error(int type);
+int		disp_room_error(void);
 
 #endif

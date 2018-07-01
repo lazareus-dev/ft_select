@@ -6,52 +6,52 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/22 11:06:26 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 17:15:35 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/06/30 21:22:31 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 #include "../includes/sel_lst.h"
+#include "../includes/sel_error.h"
+#include "../includes/sel_refresh.h"
 #include <termcap.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <fcntl.h>
 
-int     get_termtype()
+int			get_termtype(void)
 {
-	char    *termtype;
-	int     ret;
+	char	*termtype;
+	int		ret;
 
 	if (!(termtype = getenv("TERM")))
-	{
-		ft_putendl_fd("TERM not set\n", 2);
-		return (-1);
-	}
-	ret = tgetent(0, termtype);
+		return (term_error(TERM_NOT_SET));
+	ret = tgetent(NULL, termtype);
 	if (ret == -1)
-	{
-		ft_putendl_fd("Can't access termcap DB\n", 2);
-		return (-1);
-	}
+		return (term_error(ACCESS_DB));
 	else if (ret == 0)
-	{
-		ft_putendl_fd("Terminal type not defined in DB\n", 2);
-		return (-1);
-	}
+		return (term_error(TERM_NOT_FOUND));
 	return (0);
 }
 
-int     set_termios(t_select *select)
+int			set_termios(t_select *select)
 {
-	if (isatty(STDIN_FILENO) == 0 || tcgetattr(0, &(select->orig_termios)) == -1)
+	if (isatty(STDIN_FILENO) == 0)
 		return (1);
-	if (tcgetattr(0, &(select->term)) == -1)
+	if ((select->fd = open(ttyname(STDIN_FILENO), O_RDWR)) == -1)
 		return (1);
-	select->term.c_lflag &= ~(ICANON | ECHO);
+	if (tcgetattr(select->fd, &(select->orig_termios)) == -1)
+		return (1);
+	if (tcgetattr(select->fd, &(select->term)) == -1)
+		return (1);
+	select->term.c_lflag &= ~(ICANON);
+	select->term.c_lflag &= ~(ECHO);
 	select->term.c_cc[VMIN] = 1;
 	select->term.c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSANOW, &(select->term)) == -1)
+	if (tcsetattr(select->fd, TCSANOW, &(select->term)) == -1)
 		return (1);
+	init_term();
 	return (0);
 }
 
@@ -65,14 +65,16 @@ t_select	*new_select(void)
 		return (NULL);
 	if (get_termtype())
 		return (NULL);
-	set_termios(select);
-	ioctl(0, TIOCGWINSZ, &(select->win));
+	if (set_termios(select))
+		return (NULL);
+	set_winsize(select);
+	select->fd = 0;
 	return (select);
 }
 
 t_select	*get_select(void)
 {
-	static t_select	*select;
+	static t_select	*select = NULL;
 
 	if (!select)
 		if (!(select = new_select()))
@@ -80,7 +82,7 @@ t_select	*get_select(void)
 	return (select);
 }
 
-void    clear_select(void)
+void		clear_select(void)
 {
 	t_select	*select;
 

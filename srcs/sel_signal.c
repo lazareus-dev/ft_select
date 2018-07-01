@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/29 14:44:37 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 15:04:27 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 15:11:25 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,13 +19,14 @@
 #include "../includes/sel_lst.h"
 #include "../includes/sel_refresh.h"
 
-void handle_winch(int sig)
+static void	handle_winch(int sig)
 {
 	signal(SIGWINCH, SIG_IGN);
 	sel_refresh(NULL);
 	signal(SIGWINCH, handle_winch);
 }
-void	sigint_handler(int sig)
+
+static void	sigint_handler(int sig)
 {
 	t_select	*select;
 
@@ -33,13 +34,15 @@ void	sigint_handler(int sig)
 	if (sig == SIGTSTP)
 	{
 		signal(SIGTSTP, SIG_DFL);
-		ioctl(0, TIOCSTI, "\x1a");
 		restore_term(select);
+		ioctl(0, TIOCSTI, "\x1a");
 	}
 	else if (sig == SIGCONT)
 	{
 		signal(SIGTSTP, sigint_handler);
 		tcsetattr(0, TCSANOW, &(select->term));
+		init_term();
+		sel_refresh(select);
 	}
 	else
 	{
@@ -49,14 +52,17 @@ void	sigint_handler(int sig)
 	}
 }
 
-void	sig_handlers(void)
+void		sig_handlers(void)
 {
 	signal(SIGWINCH, handle_winch);
 	signal(SIGINT, sigint_handler);
 	signal(SIGTERM, sigint_handler);
 	signal(SIGQUIT, sigint_handler);
+	signal(SIGABRT, sigint_handler);
 	signal(SIGCONT, sigint_handler);
 	signal(SIGTSTP, sigint_handler);
-//	if ((signal(SIGSEGV, sigint_handler) == SIG_ERR))
-//		ft_putendl("SIGSEGV error");
+	signal(SIGUSR1, sigint_handler);
+	signal(SIGUSR2, sigint_handler);
+	signal(SIGSEGV, sigint_handler);
+	signal(SIGHUP, sigint_handler);
 }

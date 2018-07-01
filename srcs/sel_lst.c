@@ -6,25 +6,26 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/25 14:55:04 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/06/29 18:45:24 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 14:11:17 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/ft_select.h"
 #include "../includes/sel_select.h"
-#include "../libft/ft_printf/ft_printf.h"
+#include "../includes/sel_refresh.h"
+#include "../includes/sel_utils.h"
 
 void	push_back(t_headlst **head, t_elem *elem)
 {
-	t_elem   *run;
+	t_elem	*run;
 
 	if ((*head)->first == NULL)
 	{
 		(*head)->first = elem;
 		elem->next = elem;
 		elem->prev = elem;
-		elem->cur = 1;
+		elem->cursor = 1;
 	}
 	else
 	{
@@ -45,7 +46,7 @@ t_elem	*new_elem(char *name)
 	elem->prev = NULL;
 	elem->next = NULL;
 	elem->selected = 0;
-	elem->cur = 0;
+	elem->cursor = 0;
 	elem->name = name;
 	return (elem);
 }
@@ -53,23 +54,27 @@ t_elem	*new_elem(char *name)
 int		delete_elem(void)
 {
 	t_select	*select;
+	t_elem		*first;
 	t_elem		*to_del;
 	t_elem		*next;
-	t_elem		*first;
+	t_elem		*prev;
 
 	select = get_select();
+	first = select->arglst->first;
 	to_del = select->cur;
 	next = to_del->next;
-	first = select->arglst->first;
+	prev = to_del->prev;
+	if (to_del == next)
+		return (1);
 	if (first == to_del)
 		select->arglst->first = next;
-	to_del->prev->next = next;
-	next->prev = to_del->prev;
-	if (next->prev == next)
-		return (1);
+	prev->next = next;
+	next->prev = prev;
+	next->cursor = 1;
 	select->cur = next;
-	next->cur = 1;
 	free(to_del);
+	select->arglst->nb_node -= 1;
+	select->disp.max_len = max_len(select->arglst) + 2;
 	sel_refresh(select);
 	return (0);
 }
@@ -80,38 +85,18 @@ int		init_arglst(t_select *select, int ac, char **av)
 	t_headlst	*lst;
 
 	lst = select->arglst;
+	select->arglst->nb_node = 0;
 	lst->first = NULL;
 	while (--ac)
 	{
 		if ((elem = new_elem(*++av)) == NULL)
 			return (-1);
 		push_back(&lst, elem);
+		select->arglst->nb_node += 1;
 	}
 	select->cur = lst->first;
+	select->disp.max_len = max_len(lst) + 2;
 	return (0);
-}
-
-void	echo_result()
-{
-	t_select	*select;
-	t_elem		*node;
-	t_elem		*first;
-
-	select = get_select();
-	node = select->arglst->first;
-	first = select->arglst->first;
-	while (node != first->prev)
-	{
-		if (node->selected)
-		{
-			ft_putstr(node->name);
-			ft_putchar(' ');
-		}
-		node = node->next;
-	}
-	if (node->selected)
-		ft_putstr(node->name);
-	ft_putchar('\n');
 }
 
 void	free_arglst(t_headlst *arglst)

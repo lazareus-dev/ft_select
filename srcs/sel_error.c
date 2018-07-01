@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   sel_display.h                                    .::    .:/ .      .::   */
+/*   sel_error.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/06/25 14:43:42 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/01 14:26:50 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Created: 2018/06/30 16:38:31 by tle-coza     #+#   ##    ##    #+#       */
+/*   Updated: 2018/07/01 14:55:28 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef SEL_DISPLAY_H
-# define SEL_DISPLAY_H
+#include "../includes/ft_select.h"
 
-void	display_list(t_select *select);
+int		term_error(int type)
+{
+	if (type == TERM_NOT_SET)
+		ft_putendl_fd("TERM not set", 2);
+	else if (type == ACCESS_DB)
+		ft_putendl_fd("Can't access termcap DB", 2);
+	else if (type == TERM_NOT_FOUND)
+		ft_putendl_fd("Terminal type not defined in DB", 2);
+	return (-1);
+}
 
-#endif
+int		disp_room_error(void)
+{
+	ft_putstr_fd("\e[1m\e[31m", 2);
+	ft_putendl_fd("Expand!", 2);
+	ft_putstr_fd(RESET, 2);
+	return (-1);
+}
