@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/25 14:35:40 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/01 15:08:46 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 15:35:36 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,18 +14,15 @@
 #include "../includes/ft_select.h"
 #include "../includes/sel_select.h"
 #include "../includes/sel_error.h"
-#include "../includes/sel_lst.h"
 #include <termcap.h>
 
 /*
 ** Calculate the best ratio rows/columns for the display
 */
 
-int		rows_and_cols(t_select *select)
+static int	rows_and_cols(t_select *select)
 {
 	int	max_col;
-	int	add;
-	int	delta;
 
 	if (!(max_col = select->disp.width / select->disp.max_len))
 		return (-1);
@@ -36,7 +33,7 @@ int		rows_and_cols(t_select *select)
 	return (0);
 }
 
-void	put_elem(t_elem *elem)
+static void	put_elem(t_elem *elem)
 {
 	if (ft_is_lnk(elem->name))
 		ft_putstr_fd(PURP, 2);
@@ -57,7 +54,7 @@ void	put_elem(t_elem *elem)
 	ft_putstr_fd(RESET, 0);
 }
 
-int		sel_dispatch(t_elem *elem, t_select *select, int i, int j)
+static int	sel_dispatch(t_elem *elem, t_select *select, int i, int j)
 {
 	tputs(tgoto(tgetstr("cm", NULL), (j * select->disp.max_len), i),
 			1, ft_putchar_term);
@@ -66,7 +63,7 @@ int		sel_dispatch(t_elem *elem, t_select *select, int i, int j)
 	return (0);
 }
 
-int		display_list(t_select *select)
+int			display_list(t_select *select)
 {
 	t_elem		*elem;
 	int			nb;

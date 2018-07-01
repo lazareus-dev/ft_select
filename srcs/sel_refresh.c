@@ -17,7 +17,7 @@
 #include <termcap.h>
 #include <sys/ioctl.h>
 
-void	clear_screen(t_select *select)
+static void	clear_screen(t_select *select)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void	clear_screen(t_select *select)
 	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar_term);
 }
 
-int		set_winsize(t_select *select)
+int			set_winsize(t_select *select)
 {
 	struct winsize win;
 
@@ -43,7 +43,7 @@ int		set_winsize(t_select *select)
 	return (0);
 }
 
-void	sel_refresh(t_select *select)
+void		sel_refresh(t_select *select)
 {
 	if (!select)
 		select = get_select();

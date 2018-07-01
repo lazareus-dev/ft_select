@@ -32,7 +32,7 @@ static void	toggle_selected(void)
 	}
 }
 
-void		exit_clear(int code)
+static void	exit_clear(int code)
 {
 	(void)code;
 	restore_term(NULL);

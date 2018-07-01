@@ -16,11 +16,10 @@
 #include "../includes/sel_error.h"
 #include "../includes/sel_refresh.h"
 #include <termcap.h>
-#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
 
-int			get_termtype(void)
+static int		get_termtype(void)
 {
 	char	*termtype;
 	int		ret;
@@ -35,7 +34,7 @@ int			get_termtype(void)
 	return (0);
 }
 
-int			set_termios(t_select *select)
+static int		set_termios(t_select *select)
 {
 	if (isatty(STDIN_FILENO) == 0)
 		return (1);
@@ -55,7 +54,7 @@ int			set_termios(t_select *select)
 	return (0);
 }
 
-t_select	*new_select(void)
+static t_select	*new_select(void)
 {
 	t_select	*select;
 
@@ -72,7 +71,7 @@ t_select	*new_select(void)
 	return (select);
 }
 
-t_select	*get_select(void)
+t_select		*get_select(void)
 {
 	static t_select	*select = NULL;
 
@@ -82,7 +81,7 @@ t_select	*get_select(void)
 	return (select);
 }
 
-void		clear_select(void)
+void			clear_select(void)
 {
 	t_select	*select;
 

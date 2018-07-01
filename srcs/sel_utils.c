@@ -13,7 +13,6 @@
 
 #include "../includes/ft_select.h"
 #include "../includes/sel_select.h"
-#include "../includes/sel_lst.h"
 
 size_t	max_len(t_headlst *head)
 {
@@ -61,5 +60,4 @@ void	echo_result(void)
 		output ? ft_putchar(' ') : 0;
 		ft_putstr(node->name);
 	}
-	output ? ft_putchar('\n') : 0;
 }

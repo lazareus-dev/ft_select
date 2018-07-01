@@ -12,11 +12,9 @@
 /* ************************************************************************** */
 
 #include <termcap.h>
-#include <signal.h>
 #include <sys/ioctl.h>
 #include "../includes/ft_select.h"
 #include "../includes/sel_select.h"
-#include "../includes/sel_display.h"
 #include "../includes/sel_refresh.h"
 #include "../includes/sel_lst.h"
 #include "../includes/sel_signal.h"
@@ -32,7 +30,7 @@ void	restore_term(t_select *select)
 {
 	if (!select)
 		select = get_select();
-	tcsetattr(select->fd, TCSANOW, &(select->orig_termios));
+	tcsetattr(select->fd, TCSAFLUSH, &(select->orig_termios));
 	tputs(tgetstr("te", NULL), 1, ft_putchar_term);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_term);
 }

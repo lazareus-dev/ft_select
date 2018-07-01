@@ -6,7 +6,7 @@
 /*   By: tle-coza <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/06/25 14:55:04 by tle-coza     #+#   ##    ##    #+#       */
-/*   Updated: 2018/07/01 14:11:17 by tle-coza    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/07/01 15:33:02 by tle-coza    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 #include "../includes/sel_refresh.h"
 #include "../includes/sel_utils.h"
 
-void	push_back(t_headlst **head, t_elem *elem)
+static void		push_back(t_headlst **head, t_elem *elem)
 {
 	t_elem	*run;
 
@@ -37,7 +37,7 @@ void	push_back(t_headlst **head, t_elem *elem)
 	}
 }
 
-t_elem	*new_elem(char *name)
+static t_elem	*new_elem(char *name)
 {
 	t_elem	*elem;
 
@@ -51,7 +51,7 @@ t_elem	*new_elem(char *name)
 	return (elem);
 }
 
-int		delete_elem(void)
+int				delete_elem(void)
 {
 	t_select	*select;
 	t_elem		*first;
@@ -79,7 +79,7 @@ int		delete_elem(void)
 	return (0);
 }
 
-int		init_arglst(t_select *select, int ac, char **av)
+int				init_arglst(t_select *select, int ac, char **av)
 {
 	t_elem		*elem;
 	t_headlst	*lst;
@@ -99,7 +99,7 @@ int		init_arglst(t_select *select, int ac, char **av)
 	return (0);
 }
 
-void	free_arglst(t_headlst *arglst)
+void			free_arglst(t_headlst *arglst)
 {
 	t_elem	*curr;
 	t_elem	*tmp;
